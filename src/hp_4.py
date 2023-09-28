@@ -57,11 +57,11 @@ def fees_report(infile, outfile):
                 l.append(sample_dict)
         aggregated_data = {}
 
-        for dict in l
+        for dict in l:
             aggregated_data[dict['patron_id']] = aggregated_data.get(key, 0) + dictionary['late_fees']
 
-        tax = [{'patron_id': key, 'late_fees': value} for key, value in aggregated_data.items()]
-        for dict in tax:
+        t = [{'patron_id': key, 'late_fees': value} for key, value in aggregated_data.items()]
+        for dict in t:
             for k,v in dict.items():
                 if k == "late_fees":
                     if len(str(v).split('.')[-1]) != 2:
@@ -71,7 +71,7 @@ def fees_report(infile, outfile):
         col = ['patron_id', 'late_fees']
         writer = DictWriter(file, fieldnames=col)
         writer.writeheader()
-        writer.writerows(tax)
+        writer.writerows(t)
 
 # The following main selection block will only run when you choose
 # "Run -> Module" in IDLE.  Use this section to run test code.  The
