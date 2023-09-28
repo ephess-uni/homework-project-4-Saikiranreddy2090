@@ -58,7 +58,7 @@ def fees_report(infile, outfile):
         aggregated_data = {}
 
         for dict in l:
-            aggregated_data[dict['patron_id']] = aggregated_data.get(key, 0) + dictionary['late_fees']
+            aggregated_data[dict['patron_id']] = aggregated_data.get(dict['patron_id'], 0) + dictionary['late_fees']
 
         t = [{'patron_id': key, 'late_fees': value} for key, value in aggregated_data.items()]
         for dict in t:
