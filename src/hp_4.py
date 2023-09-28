@@ -58,14 +58,14 @@ def fees_report(infile, outfile):
         aggregated_data = {}
 
         for dict in l:
-            aggregated_data[dict['patron_id']] = aggregated_data.get(dict['patron_id'], 0) + dictionary['late_fees']
+            aggregated_data[dict['patron_id']] = aggregated_data.get(dict['patron_id'], 0) + dict['late_fees']
 
         t = [{'patron_id': key, 'late_fees': value} for key, value in aggregated_data.items()]
         for dict in t:
-            for k,v in dict.items():
-                if k == "late_fees":
-                    if len(str(v).split('.')[-1]) != 2:
-                        dict[k] = str(v)+'0'
+            for key,value in dict.items():
+                if key == "late_fees":
+                    if len(str(value).split('.')[-1]) != 2:
+                        dict[key] = str(value)+'0'
 
     with open(outfile,"w", newline="") as file:
         col = ['patron_id', 'late_fees']
