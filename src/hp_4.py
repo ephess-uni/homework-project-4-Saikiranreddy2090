@@ -41,8 +41,37 @@ def add_date_range(values, start_date):
 def fees_report(infile, outfile):
     """Calculates late fees per patron id and writes a summary report to
     outfile."""
-    pass
+    with open(infile) as f:
+        l=[]
+        DictReader_obj = DictReader(f)
+        for item in DictReader_obj:
+            sample_dict={}
+            day1=datetime.strptime(item['date_returned'],'%m/%d/%Y')- datetime.strptime(item['date_due'],'%m/%d/%Y') 
+            if(day1.days>0):
+                sample_dict["patron_id"]=item['patron_id']
+                sample_dict["late_fees"]=round(day1.days*0.25, 2)
+                l.append(sample_dict)
+            else:
+                sample_dict["patron_id"]=item['patron_id']
+                sample_dict["late_fees"]=float(0)
+                l.append(sample_dict)
+        aggregated_data = {}
 
+        for dict in l
+            aggregated_data[dict['patron_id']] = aggregated_data.get(key, 0) + dictionary['late_fees']
+
+        tax = [{'patron_id': key, 'late_fees': value} for key, value in aggregated_data.items()]
+        for dict in tax:
+            for k,v in dict.items():
+                if k == "late_fees":
+                    if len(str(v).split('.')[-1]) != 2:
+                        dict[k] = str(v)+'0'
+
+    with open(outfile,"w", newline="") as file:
+        col = ['patron_id', 'late_fees']
+        writer = DictWriter(file, fieldnames=col)
+        writer.writeheader()
+        writer.writerows(tax)
 
 # The following main selection block will only run when you choose
 # "Run -> Module" in IDLE.  Use this section to run test code.  The
